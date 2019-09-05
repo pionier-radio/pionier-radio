@@ -26,15 +26,38 @@ class satellite():
     def new_speed(self,dt):
         # calculate new speed 'self.v' with curren position 'self.pos'
         # after a time increment 'dt' (dtype=float)
-
-        pass 
+        self.v = self.v +  dt * self.a
+        
     
     def new_accel(self, celestial):
         # calculate new acceleration 'self.a' with curren position 'self.pos'
         gamma = self.commmon_space.GAMMA
         r = self.pos - np.transpose(celestial.pos)
-        print('position: ', np.transpose(r))
+#        print('position: ', np.round(r))
         r_abs = np.linalg.norm(r)
         
-        self.a = -self.pos * gamma * (celestial.mass*self.mass)/r_abs**3
-        print('accel: ',self.a)
+        self.a = -self.pos * gamma * (celestial.mass)/r_abs**3
+        
+#        print('accel: ',np.round(self.a))
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
