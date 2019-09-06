@@ -45,8 +45,8 @@ def orbit(dt, n):
         
     return course
 
-dt = 100
-n = 1000
+dt = 10
+n = 10000
 course = orbit(dt,n)
 
 # plot satellites orbit
@@ -54,11 +54,24 @@ l, = ax.plot(course[:,0],course[:,1],linewidth=0.3)
 
 # Define slider for initial speed
 axcolor = 'lightgoldenrodyellow'
-axfreq = plt.axes([0.45, 0.8, 0.5, 0.03], facecolor=axcolor)
+ax_init_speed = plt.axes([0.45, 0.8, 0.5, 0.03], facecolor=axcolor)
 delta_speed = 100
-slider_y_speed = Slider(axfreq, 'initial speed (m/s)', y_speed_0*0.5, y_speed_0*1.5, valinit=y_speed_0, valstep=delta_speed)
+slider_y_speed = Slider(ax_init_speed, 'initial speed (m/s)', y_speed_0*0.5, y_speed_0*1.5, valinit=y_speed_0, valstep=delta_speed)
+# Define slider for view factor
+axcolor = 'lightgoldenrodyellow'
+ax_view_factor = plt.axes([0.45, 0.2, 0.5, 0.03], facecolor=axcolor)
+delta_view_factor = 0.3
+slider_view_factor = Slider(ax_view_factor, 
+                            'view factor', 0.5,
+                            10, valinit=2, valstep=delta_view_factor)
 
-def update(val):
+def update_view_factor(val):
+    view_factor = slider_view_factor.val
+    ax.set_xlim([-view_factor*space1.RADIUS_EARTH,view_factor*space1.RADIUS_EARTH])
+    ax.set_ylim([-view_factor*space1.RADIUS_EARTH,view_factor*space1.RADIUS_EARTH])
+
+
+def update_init_speed(val):
     y_speed = slider_y_speed.val
     
     # define starting position
@@ -72,8 +85,8 @@ def update(val):
     l.set_ydata(course[:,1])
     fig.canvas.draw_idle()
     
-slider_y_speed.on_changed(update)
-
+slider_y_speed.on_changed(update_init_speed)
+slider_view_factor.on_changed(update_view_factor)
 plt.show()
 
 

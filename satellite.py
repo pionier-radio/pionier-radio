@@ -17,23 +17,30 @@ class satellite():
         
         self.a = np.zeros((self.commmon_space.DIMENSIONS,1))
         
-    def new_pos(self, dt):
+    def new_pos(self, dt, celestial):
         # calculate new position 'self.pos' with current speed 'self.v'
         # after a time increment 'dt' (dtype=float)
-        self.v = self.v +  dt * self.a
+        self.new_speed(dt, celestial)
         self.pos = self.pos + dt * self.v
         
-    def new_speed(self,dt):
+    def new_speed(self, dt, celestial):
         # calculate new speed 'self.v' with curren position 'self.pos'
         # after a time increment 'dt' (dtype=float)
-        self.v = self.v +  dt * self.a
+        v_ideal = self.v +  dt * self.a
+        r = self.pos - np.transpose(celestial.pos)
+        r_abs = np.linalg.norm(r)
+        if r_abs < 
+            v_real = v_ideal*
+    
+    def atmospherical_properties(self, Cd, S):
         
+    
     
     def new_accel(self, celestial):
         # calculate new acceleration 'self.a' with curren position 'self.pos'
         gamma = self.commmon_space.GAMMA
+        
         r = self.pos - np.transpose(celestial.pos)
-#        print('position: ', np.round(r))
         r_abs = np.linalg.norm(r)
         
         self.a = -self.pos * gamma * (celestial.mass)/r_abs**3
