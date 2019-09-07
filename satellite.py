@@ -29,11 +29,22 @@ class satellite():
         v_ideal = self.v +  dt * self.a
         r = self.pos - np.transpose(celestial.pos)
         r_abs = np.linalg.norm(r)
-        if r_abs < 
-            v_real = v_ideal*
+        
+        Cd = 0.06 
+        S = 10
+        atmos_factor = self.atmospherical_properties(Cd, S)
+        
+        if r_abs < celestial.atmos_calc_limit:
+            v_real = v_ideal * atmos_factor 
+        
+        self.v = v_real
     
     def atmospherical_properties(self, Cd, S):
+        # S: Surface of S/C [m**2] (dtype=float)
+        # Cd: Drag coefficient [-] (dtype=float)
+        # get aerodynamic properties of S/C and return v-reduction factor
         
+        return None
     
     
     def new_accel(self, celestial):

@@ -3,14 +3,18 @@
 import numpy as np
 import general as g
 
+
 class celestial():
     def __init__(self,common_space, mass):
         
         self.commmon_space = common_space
         
-        self.radius = None
+        self.radius = 0
         self.mass = mass # kg
         self.pos = np.zeros((self.commmon_space.DIMENSIONS,1)) # [m.m]
+        
+        self.atmos_calc_limit = self.radius + 500000 # [m] up to this atmospheric influences will be considered
+        
         self.atmosphere_pressure_surface = 10**5  # Pa 
         self.ideal_gas_constant = 287 # J/(kg mol)
         
@@ -25,5 +29,12 @@ class celestial():
         p_h1= np.exp(-(g_a*M*(h1-self.radius))/(R*T))
         
         return p_h1
+    
+
+if __name__ == "__main__":
+    
+    print('\n','_'*80,'\ntesting')
+    test_space = g.common_space()
+    test_earth = celestial(test_space, test_space.MASS_EARTH)
     
     
