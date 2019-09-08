@@ -12,3 +12,5 @@ class common_space():
         
         self.MASS_EARTH = 5.972*10**24
         self.RADIUS_EARTH = 6.731 * 10**6
+        
+        self.satellite_collector = []

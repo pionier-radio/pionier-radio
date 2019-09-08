@@ -38,21 +38,32 @@ ax.grid()
 ax.fill_between(x_earth, y_earth, color='#539ecd')
 
 #%% define satellites
-satellite_collec = []
                 
-y_speed_0 = 8000
+y_speed_0 = 7800
 x_speed_0 = 0
-pos_0 = np.array([space1.RADIUS_EARTH*1.1,0])
+pos_0 = np.array([space1.RADIUS_EARTH*1.1,91000])
 satellite1 = s.satellite(space1,1,np.array([x_speed_0,y_speed_0]),pos_0)
+space1.satellite_collector.append(satellite1)
 
-y_speed_0 = 8000
-x_speed_0 = 1000
-satellite2 = s.satellite(space1,1,np.array([x_speed_0,y_speed_0]),pos_0)
-satellite_collec.append(satellite1)
-satellite_collec.append(satellite2)
+y_speed_0 = -8000
+x_speed_0 = 0
+pos_0 = np.array([space1.RADIUS_EARTH*1.1,-91000])
+satellite1 = s.satellite(space1,1,np.array([x_speed_0,y_speed_0]),pos_0)
+space1.satellite_collector.append(satellite1)
+
+
+
+
+#for number in range(2):
+#    y_speed_0 -= 100
+##    x_speed_0 +=50
+#    pos_0 = pos_0 + np.array([200000,0])
+#    space1.satellite_collector.append(s.satellite(space1,1,np.array([x_speed_0,y_speed_0]),pos_0))
+#    
+    
 
 #%% Animating Satellite as dot
-dt = 200
+dt = 50
 
 def orbit_step_n(satellite_n,dt):
     # calculate orbit for next timestep
@@ -63,19 +74,19 @@ def orbit_step_n(satellite_n,dt):
 
 x, y = [],[]
 
-for sat in satellite_collec:
+for sat in space1.satellite_collector:
     course = orbit_step_n(sat, dt)
     x.append(course[0])
     y.append(course[1])
 
-l, = ax.plot(x, y, 'o')    
+l, = ax.plot(x, y, '*')   
+ 
 
 def animate(i):
-    # animate next step
-    global satellite_collec 
+    # animate next step 
     x, y = [],[]
     
-    for sat in satellite_collec:
+    for sat in space1.satellite_collector:
         course = orbit_step_n(sat, dt)
         x.append(course[0])
         y.append(course[1])
@@ -83,9 +94,11 @@ def animate(i):
     l.set_ydata(y)
     return l,
 
-ani = animation.FuncAnimation(fig, animate, interval=1 )
+ani = animation.FuncAnimation(fig, animate, interval=10)
 
 plt.show()
+
+#ani.save('animation_one_dot.gif',fps=30)
 
 #%% slider for field of view
 
