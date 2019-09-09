@@ -14,3 +14,12 @@ class common_space():
         self.RADIUS_EARTH = 6.731 * 10**6
         
         self.satellite_collector = []
+    def orbit(self, dt, n, sat, celestial):
+        # calculate orbit over n timesteps of size dt
+        course = np.zeros((n,self.DIMENSIONS))
+        for t in range(n):
+            sat.new_accel(celestial)
+            sat.new_pos(dt, celestial)
+            course[t,:]=sat.pos
+            
+        return course

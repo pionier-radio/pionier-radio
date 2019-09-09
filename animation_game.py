@@ -64,6 +64,7 @@ space1.satellite_collector.append(satellite1)
 
 #%% Animating Satellite as dot
 dt = 50
+check24 = 0
 
 def orbit_step_n(satellite_n,dt):
     # calculate orbit for next timestep
@@ -85,11 +86,17 @@ l, = ax.plot(x, y, '*')
 def animate(i):
     # animate next step 
     x, y = [],[]
-    
+    global check24
     for sat in space1.satellite_collector:
         course = orbit_step_n(sat, dt)
         x.append(course[0])
         y.append(course[1])
+        
+#    if ((y[1]<100)&(y[1]>-100))&(check24%1==0):
+#        print('satellite velocity is' , np.round(sat.v,decimals=2),
+#              'at position ',np.round(y[1],decimals=2))
+#        print(check24)
+#    check24+=1
     l.set_xdata(x)
     l.set_ydata(y)
     return l,
