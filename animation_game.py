@@ -39,7 +39,7 @@ ax.fill_between(x_earth, y_earth, color='#539ecd')
 
 #%% define satellites
                 
-y_speed_0 = 7800
+y_speed_0 = 9000
 x_speed_0 = 0
 pos_0 = np.array([space1.RADIUS_EARTH*1.1,91000])
 satellite1 = s.satellite(space1,1,np.array([x_speed_0,y_speed_0]),pos_0)

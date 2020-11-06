@@ -19,6 +19,7 @@ class celestial():
         self.ideal_gas_constant = 287 # J/(kg mol)
         
         
+        
     def pressure_at_h1(self,h1):
         
         R = self.ideal_gas_constant
@@ -29,10 +30,9 @@ class celestial():
         p_h1= np.exp(-(g_a*M*(h1-self.radius))/(R*T))
         
         return p_h1
-    
+        
 
 if __name__ == "__main__":
-    
     print('\n','_'*80,'\ntesting')
     test_space = g.common_space()
     test_earth = celestial(test_space, test_space.MASS_EARTH)
